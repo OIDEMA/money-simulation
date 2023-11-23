@@ -1,0 +1,42 @@
+version: "3.9"
+services:
+# Nextフロントエンド
+  money-web:
+    container_name: money-simulation
+    build: ./money-simulation
+    ports:
+      - "3000:3000"
+    volumes:
+      - ./money-simulation:/money-simulation
+    command: sh -c "npm run dev"
+
+# Mysql
+  moneydb:
+    build: ./db
+    image: mysql
+    restart: always
+    environment:
+      MYSQL_DATABASE: money-simulation
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_USER: oidema
+      MYSQL_PASSWORD: oidema
+      TZ: 'Asia/Tokyo'
+    volumes:
+#      - ./mysql/seed:/docker-entrypoint-initdb.d # 初回データ実行
+      - ./db/data:/var/lib/mysql # データ永続化
+    ports:
+      - "3306:3306"
+
+# phpMyAdmin
+  myAdmin:
+    container_name: myAdmin
+    image: phpmyadmin
+    environment:
+      PMA_HOST: moneydb  #mysqlのサービス名
+      PMA_USER: oidema #phpmyadminにログインするユーザ
+      PMA_PASSWORD: oidema #phpmyadminにログインするユーザのパスワード
+    restart: always
+    ports:
+      - "80:80"
+    depends_on:
+      - moneydb

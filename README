@@ -1,0 +1,47 @@
+
+## 起動方法
+
+1. docker desktopを立ち上げる
+2. docker compose up -d
+
+## 想定機能
+
+### お金タイプ診断
+
+```mermaild
+graph TD
+  subgraph Database
+    customers[Customers]
+    questions[Questions]
+    answers[Answers]
+  end
+
+  customers -->|1| answers
+  questions -->|1| answers
+
+  style customers fill:#86C7F3,stroke:#333,stroke-width:2px;
+  style questions fill:#FFD580,stroke:#333,stroke-width:2px;
+  style answers fill:#AED690,stroke:#333,stroke-width:2px;
+
+  subgraph Entities
+    c1[customer_id]
+    c2[name]
+    c3[email]
+
+    q1[question_id]
+    q2[content]
+
+    a1[answer_id]
+    a2[response]
+  end
+
+  c1 -->|1| answers
+  c2 -->|*| customers
+  c3 -->|*| customers
+
+  q1 -->|1| answers
+  q2 -->|*| questions
+
+  a1 -->|*| answers
+  a2 -->|*| answers
+```
