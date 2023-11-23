@@ -1,4 +1,3 @@
-
 ## 起動方法
 
 1. docker desktopを立ち上げる
@@ -13,7 +12,7 @@ erDiagram
     USERS ||--o{ QUESTIONS : has
     USERS {
         uuid user_id
-        string nicname 
+        string nicname
         string email
         string prefecture
     }
