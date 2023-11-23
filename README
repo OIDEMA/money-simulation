@@ -8,7 +8,7 @@
 
 ### お金タイプ診断
 
-```mermaild
+```mermaid
 graph TD
   subgraph Database
     customers[Customers]
